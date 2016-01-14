@@ -8,7 +8,7 @@ INSERT INTO categories VALUES
 	(7,5,"Other Crime","2B"),
 	(8,1,"Sci-Fi","3A"),
 	(9,8,"Graphic Novels/Comics","3B"),
-	(10,8,"Horror","3C"),
+	(10,8,"Other Sci-Fi","3C"),
 	(11,1,"Leisure/Lifestyle",4),
 	(12,11,"Natural History","4A"),
 	(13,11,"Humour","4B"),
