@@ -14,7 +14,7 @@ def FetchById( id ):
 	result = None
 	
 	try:
-		query = "SELECT * FROM categories WHERE id = %s;"
+		query = "SELECT * FROM category WHERE id = %s;"
 		db.cursor.execute( query, ( id, ) )
 		result = db.cursor.fetchone()
 		
@@ -37,7 +37,7 @@ def FetchByParentId( parent_id ):
 	result = None
 	
 	try:
-		query = "SELECT * FROM categories WHERE parent_id = %s;"
+		query = "SELECT * FROM category WHERE parent_id = %s;"
 		db.cursor.execute( query, ( parent_id, ) )
 		result = db.cursor.fetchall()
 	except Error as e:
