@@ -1,14 +1,11 @@
 import mysql.connector
 from mysql.connector import Error
+from python_mysql_dbconfig import read_db_config
 
 # Datbase Connection/Cursor Configuration
 ### TODO: Move these out to an ini file, and have them being server-specific settings.
-defaultConnectionParams = {
-	"host": "localhost",
-	"database": "salestracker",
-	"user": "oxfam",
-	"password": "f26080708"
-}
+defaultConnectionParams = read_db_config()
+
 
 defaultCursorParams = {
 	"dictionary": True
