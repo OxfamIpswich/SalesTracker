@@ -3,7 +3,8 @@ INSERT INTO region VALUES
 	(2,1,'CO6','Anglia East');
 
 INSERT INTO shop VALUES
-	(1,2,'F2608','Ipswich');
+	(1,2,'F2608','Ipswich'),
+	(2,2,'F3903','Colchester');
 
 INSERT INTO datasource_type VALUES
 	(1,'Till Standard'),
