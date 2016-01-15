@@ -1,4 +1,4 @@
-INSERT INTO categories VALUES
+INSERT INTO category VALUES
 	(1,NULL,'Books',NULL),
 		(2,1,'Fiction','1'),
 			(3,2,'Popular Fiction','1A'),
