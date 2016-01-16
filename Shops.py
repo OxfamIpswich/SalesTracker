@@ -97,11 +97,11 @@ def FetchByRegionId( region_id ):
 		query = "SELECT * FROM shop WHERE region_id = %s;"
 		db.cursor.execute( query, ( region_id, ) )
 		result = db.cursor.fetchall()
-		Log.info(('SHOPS-Fetch-RegionId', 'Successfully grabbed data'))
+		Log.info(('SHOPS-Fetch-RegionId:','Successfully grabbed data'))
 	except Error as e:
-		Log.error(('SHOPS-Fetch-RegionId', e))
+		Log.error(('SHOPS-Fetch-RegionId:', e))
 		Log.info(('SHOPS-Fetch-RegionId:Query:', query))
-		Log.info(('SHOPS-Fetch-RegionId', 'Failed to grab data'))
+		Log.info(('SHOPS-Fetch-RegionId:', 'Failed to grab data'))
 	
 	return result
 
@@ -125,10 +125,15 @@ def FetchByRegionCode( code ):
 	
 	if region is not None:
 		try:
+			Log.info(('SHOPS-Fetch-RegionCode:', 'Trying to grab data using regionCode/Id '))
 			query = "SELECT * FROM shop WHERE region_id = %s;"
 			db.cursor.execute( query, ( region[ "id" ], ) )
 			result = db.cursor.fetchall()
+			Log.info(('SHOPS-Fetch-RegionCode:', 'Successfully grabbed data'))
 		except Error as e:
-			print( e )	### TODO: Use a proper logging mechanism.
+			Log.error(('SHOPS-Fetch-RegionCode', e))
+			Log.info(('SHOPS-Fetch-RegionCode:Querry:', query))
+			Log.info(('SHOPS-Fetch-RegionCode:', 'Failed to grab data'))
+
 	
 	return result

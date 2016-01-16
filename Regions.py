@@ -1,5 +1,6 @@
 from Database import db
 from mysql.connector import Error
+from Log import Log
 
 def FetchById( id ):
 	"""
@@ -14,12 +15,15 @@ def FetchById( id ):
 	result = None
 	
 	try:
+		Log.info(('REGIONS-Fetch-Id:', 'Trying to grab data from table using Id'))
 		query = "SELECT * FROM region WHERE id = %s;"
 		db.cursor.execute( query, ( id, ) )
 		result = db.cursor.fetchone()
-		
+		Log.info(('REGIONS-Fetch-Id:', 'Successfully grabbed data'))
 	except Error as e:
-		print( e )	### TODO: Use a proper logging mechanism.
+		Log.error(('REGIONS-Fetch-Id:', e))
+		Log.info(('REGIONS-Fetch-Id:Query:', query))
+		Log.info(('REGIONS-Fetch-Id:', 'Failed to grab data'))
 	
 	return result
 
@@ -37,11 +41,15 @@ def FetchByCode( code ):
 	result = None
 	
 	try:
+		Log.info(('REGIONS-Fetch-Code', 'Trying to grab data from table using Code'))
 		query = "SELECT * FROM region WHERE code = %s;"
 		db.cursor.execute( query, ( code, ) )
 		result = db.cursor.fetchone()
-		
+		Log.info((('REGIONS-Fetch-Code', 'Successfully grabbed data')))
+
 	except Error as e:
-		print( e )	### TODO: Use a proper logging mechanism.
+		Log.info(('REGIONS-Fetch-Code', e))
+		Log.info(('REGIONS-Fetch-Code:Query:', query))
+		Log.info(('REGIONS-Fetch-Code:', 'Failed to grab data'))
 	
 	return result
