@@ -1,6 +1,6 @@
 from Database import db
 from mysql.connector import Error
-
+from Log import Log
 import Regions
 
 def FetchById( id ):
@@ -16,13 +16,16 @@ def FetchById( id ):
 	result = None
 	
 	try:
+		Log.info(('SHOPS-Fetch-Id:', 'Trying to grab data from table using Id'))
 		query = "SELECT * FROM shop WHERE id = %s;"
 		db.cursor.execute( query, ( id, ) )
 		result = db.cursor.fetchone()
+		Log.info(('SHOPS-Fetch-Id:', 'Successfully grabbed data'))
 		
 	except Error as e:
-		print( e )	### TODO: Use a proper logging mechanism.
-	
+		Log.error(('SHOPS-Fetch-Id:', e))
+		Log.info(('SHOPS-Fetch-Id:', query))
+		Log.info(('SHOPS-Fetch-Id:', 'Failed to grab data'))
 	return result
 
 def FetchAll():
@@ -38,12 +41,16 @@ def FetchAll():
 	result = None
 	
 	try:
+		Log.info(('SHOPS-Fetch-All:', 'Trying to grab all data from table'))
 		query = "SELECT * FROM shop;"
 		db.cursor.execute( query )
 		result = db.cursor.fetchall()
+		Log.info(('SHOPS-Fetch-All:', 'Successfully grabbed data'))
 	except Error as e:
-		print( e )	### TODO: Use a proper logging mechanism.
-	
+		Log.error(('SHOPS-Fetch-All:', e))
+		Log.info(('SHOPS-Fetch-All:Query:', query))
+		Log.info(('SHOPS-Fetch-All:', 'Failed to grab data'))
+
 	return result
 
 def FetchByCode( code ):
@@ -59,12 +66,16 @@ def FetchByCode( code ):
 	result = None
 	
 	try:
+		Log.info(('SHOPS-Fetch-Code:', 'Trying to grab data from table using Code'))
 		query = "SELECT * FROM shop WHERE code = %s;"
 		db.cursor.execute( query, ( code, ) )
 		result = db.cursor.fetchone()
+		Log.info(('SHOPS-Fetch-Code:', 'Successfully grabbed data'))
 		
 	except Error as e:
-		print( e )	### TODO: Use a proper logging mechanism.
+		Log.error(('SHOPS-Fetch-Code:', e))
+		Log.info(('SHOPS-Fetch-Code:Query:',query))
+		Log.info(('SHOPS-Fetch-Code:', 'Failed to grab data'))
 	
 	return result
 
@@ -82,11 +93,15 @@ def FetchByRegionId( region_id ):
 	result = None
 	
 	try:
+		Log.info(('SHOPS-Fetch-RegionId:', 'Trying to grab data from table using RegionId'))
 		query = "SELECT * FROM shop WHERE region_id = %s;"
 		db.cursor.execute( query, ( region_id, ) )
 		result = db.cursor.fetchall()
+		Log.info(('SHOPS-Fetch-RegionId', 'Successfully grabbed data'))
 	except Error as e:
-		print( e )	### TODO: Use a proper logging mechanism.
+		Log.error(('SHOPS-Fetch-RegionId', e))
+		Log.info(('SHOPS-Fetch-RegionId:Query:', query))
+		Log.info(('SHOPS-Fetch-RegionId', 'Failed to grab data'))
 	
 	return result
 
