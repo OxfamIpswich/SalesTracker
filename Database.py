@@ -1,6 +1,9 @@
 import mysql.connector
+import logging
 from mysql.connector import Error
 from Config import read_db_config
+from Config import read_logging_config
+
 
 # Datbase Connection/Cursor Configuration
 ### TODO: Move these out to an ini file, and have them being server-specific settings.
@@ -26,13 +29,23 @@ class Database:
     cursor = None
 
     def __init__(self, connectionParams, cursorParams):
+        loggingConfig = read_logging_config()
+        loggingConfig["level"]=int(loggingConfig["level"])
+        logging.basicConfig(format='%(asctime)s %(message)s',**loggingConfig)
+        
+
+
         try:
+            logging.info('Attempting to connect to database')
             self.connection = mysql.connector.connect(**connectionParams)
             self.cursor = self.connection.cursor(**cursorParams)
-            
+            logging.info('Connected Successful')
 
         except Error as e:
-            print(e)  ### TODO: Use a proper logging mechanism.
+            print(e)
+            logging.debug(e)
+            logging.info('Connection Failed')
+
 
     def __exit__(self):
         self.cursor.close()
