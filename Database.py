@@ -41,6 +41,7 @@ class Database:
 
         except Error as e:
             Logdb.critical(e)
+            Logdb.info(connectionParams)
             Logdb.info('Connection failed')
 
 
