@@ -3,7 +3,6 @@ import logging
 from mysql.connector import Error
 from Config import read_config
 from Log import Log
-from Log import Logdb
 # Datbase Connection/Cursor Configuration
 ### TODO: Move these out to an ini file, and have them being server-specific settings.
 defaultConnectionParams = read_config(section='mysql')
@@ -34,15 +33,16 @@ class Database:
 
 
         try:
-            Logdb.info('Attempting to connect to database')
+            Log.info(('DATABASE:', 'Trying to connect to database'))
             self.connection = mysql.connector.connect(**connectionParams)
             self.cursor = self.connection.cursor(**cursorParams)
-            Logdb.info('Connected to database')
+            Log.info(('DATABASE:','Connected to database'))
 
         except Error as e:
-            Logdb.critical(e)
-            Logdb.info(connectionParams)
-            Logdb.info('Connection failed')
+            Log.critical(('DATABASE:', e))
+            Log.info(('DATABASE: Connection Params:',connectionParams))
+            Log.info(('DATABASE: Cursor Params:', cursorParams))
+            Log.info(('DATABASE:','Connection failed'))
 
 
 

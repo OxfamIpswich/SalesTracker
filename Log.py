@@ -12,9 +12,8 @@ console.setFormatter(formatter)
 
 logging.getLogger('').addHandler(console) #This is the root logger
 
-Logdb = logging.getLogger('database.py')#define a new logger for each area your logging this is just an example
-
 Log = logging
+
 
 
 
