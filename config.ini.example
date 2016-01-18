@@ -6,3 +6,9 @@ password = oXfam!
 [logging]
 filename= example.log
 level = 10
+[Email_Login]
+user=
+password=
+[Email_Server]
+host = smtp.gmail.com
+port = 587
