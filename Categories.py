@@ -72,4 +72,19 @@ def FetchAll():
 
 		return result
 
+def FetchTreeByParentId(parent_id):
+
+	bookCategories = FetchByParentId(parent_id)
+	if bookCategories is not None:
+		for child in bookCategories:
+			child["children"] = FetchTreeByParentId(child["id"])
+	return bookCategories
+
+
+
+
+
+
+
+
 

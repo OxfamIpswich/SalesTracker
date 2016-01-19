@@ -3,6 +3,7 @@ import logging
 from mysql.connector import Error
 from Config import read_config
 from Log import Log
+from Email import SendMail
 # Datbase Connection/Cursor Configuration
 ### TODO: Move these out to an ini file, and have them being server-specific settings.
 defaultConnectionParams = read_config(section='mysql')
@@ -39,6 +40,7 @@ class Database:
             Log.info(('DATABASE:','Connected to database'))
 
         except Error as e:
+            SendMail(sender='Connor Youngs', to='Youngsie1997@gmail.com', subject='Test', body= e)
             Log.critical(('DATABASE:', e))
             Log.info(('DATABASE: Connection Params:',connectionParams))
             Log.info(('DATABASE: Cursor Params:', cursorParams))
