@@ -73,6 +73,14 @@ def FetchAll():
 		return result
 
 def FetchTreeByParentId(parent_id):
+	"""
+	Grabs data in it's tree structure from database table using parent_id
+	Args:
+	    parent_id:
+
+	Returns:
+	dict of categories
+	"""
 
 	bookCategories = FetchByParentId(parent_id)
 	if bookCategories is not None:
