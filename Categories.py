@@ -54,23 +54,6 @@ def FetchByParentId( parent_id ):
 
 	return result
 
-def FetchAll():
-
-
-	result = None
-
-	try:
-		Log.info(('CATEGORIES-Fetch-All:', 'Trying to grab all data from table'))
-		query = "SELECT * FROM category;"
-		db.cursor.execute( query )
-		result = db.cursor.fetchall()
-		Log.info(('CATEGORIES-Fetch-All', 'Successfully grabbed data'))
-	except Error as e:
-		Log.error(('CATEGORIES-Fetch-All', e))
-		Log.info(('CATEGORIES-Fetch-All:Query:', query))
-		Log.info(('CATEGORIES-Fetch-All:', 'Failed to grab data'))
-
-		return result
 
 def FetchTreeByParentId(parent_id):
 	"""
