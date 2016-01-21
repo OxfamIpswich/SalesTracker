@@ -4,6 +4,7 @@ from mysql.connector import Error
 from Config import read_config
 from Log import Log
 from Email import SendMail
+
 # Datbase Connection/Cursor Configuration
 ### TODO: Move these out to an ini file, and have them being server-specific settings.
 defaultConnectionParams = read_config(section='mysql')
@@ -11,8 +12,6 @@ defaultConnectionParams = read_config(section='mysql')
 defaultCursorParams = {
     "dictionary": True
 }
-
-
 
 
 class Database:
@@ -31,39 +30,36 @@ class Database:
 
     def __init__(self, connectionParams, cursorParams):
 
-
         try:
             Log.info(('DATABASE:', 'Trying to connect to database'))
             self.connection = mysql.connector.connect(**connectionParams)
             self.cursor = self.connection.cursor(**cursorParams)
-            Log.info(('DATABASE:','Connected to database'))
+            Log.info(('DATABASE:', 'Connected to database'))
         except Error as e:
             Log.critical(('DATABASE:', e))
-            Log.info(('DATABASE: Connection Params:',connectionParams))
+            Log.info(('DATABASE: Connection Params:', connectionParams))
             Log.info(('DATABASE: Cursor Params:', cursorParams))
-            Log.info(('DATABASE:','Connection failed'))
-
-
+            Log.info(('DATABASE:', 'Connection failed'))
 
     def __exit__(self):
         self.cursor.close()
         self.connection.close()
 
 
-
-
 # Create a default instance of a database connection which we can then just import without having to mess about with
 # connection parameters in every module.  If you want another just create your own instance of Database.
 db = Database(defaultConnectionParams, defaultCursorParams)
 
-def FetchTree(root_id,table_name, id_field="id", parent_id_field = "parent_id",children_property="children"):
-    result = None
 
-    query = 'SELECT * FROM%(table_name)s WHERE% (parent_id_field)s=%(root_id)s'
-    db.cursor.execute(query,{'table_name':table_name, 'parent_id_field':parent_id_field, 'root_id':root_id})
-    Log.info(db.cursor.statement)
-    result = db.cursor.fetchall()
+def FetchTree(root_id, table_name, id_field="id", parent_id_field="parent_id", children_property="children"):
+#Andy will documment this to explain it in further detail
 
-    return result
+    query = "SELECT * FROM " + table_name + " WHERE " + parent_id_field + "  = %(root_id)s"
+    db.cursor.execute(query, {'root_id': root_id})
+    children = db.cursor.fetchall()
+    if children is not None:
+        for child in children:
+            child[children_property] = FetchTree(child[id_field], table_name)
+    return children
 
-FetchTree(table_name='category',parent_id_field='parent_id',root_id=1)
+
