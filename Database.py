@@ -67,7 +67,7 @@ def FetchTree( root_id, table_name, id_field = "id", parent_id_field = "parent_i
 		table_name					string: The name of the database table to query.	### WARNING: THIS VALUE MUST BE CLEAN.
 		id_field						string, optional: The name of the field to use for the record id.  By default this is "id".	### WARNING: THIS VALUE MUST BE CLEAN.
 		parent_id_field			string, optional: The name of the field to use for the record parent id.  By default this is "parent_id".	### WARNING: THIS VALUE MUST BE CLEAN.
-		children_property		string, optional: The name of the property within a records dict that their children are stored.  By default this is "children".	### WARNING: THIS VALUE MUST BE CLEAN.
+		children_property		string, optional: The name of the property within a records dict that their children are stored.  By default this is "children".
 
 	Returns:
 		The result is a list of dicts representing the first layer, and then each dict has a "children" property set that will contain a list of dicts of any children of 
