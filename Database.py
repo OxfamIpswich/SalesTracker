@@ -3,7 +3,6 @@ import logging
 from mysql.connector import Error
 from Config import read_config
 from Log import Log
-from Email import SendMail
 
 # Datbase Connection/Cursor Configuration
 ### TODO: Move these out to an ini file, and have them being server-specific settings.
