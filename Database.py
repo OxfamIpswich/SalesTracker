@@ -51,13 +51,13 @@ db = Database(defaultConnectionParams, defaultCursorParams)
 
 
 ### WARNING: NOT SAFE - Data passed to the table_name, id_field, parent_id_field and children_property MUST be clean.
-def FetchTree(root_id, table_name, id_field = "id", parent_id_field = "parent_id", children_property = "children"):
-	query = "SELECT * FROM " + table_name + " WHERE " + parent_id_field + "	= %(root_id)s"
-	db.cursor.execute(query, {'root_id': root_id})
+def FetchTree( root_id, table_name, id_field = "id", parent_id_field = "parent_id", children_property = "children" ):
+	query = "SELECT * FROM " + table_name + " WHERE " + parent_id_field + " = %(root_id)s"
+	db.cursor.execute( query, { "root_id": root_id } )
 	children = db.cursor.fetchall()
 	
 	if children is not None:
 		for child in children:
-			child[children_property] = FetchTree(child[id_field], table_name)
+			child[ children_property ] = FetchTree( child[ id_field ], table_name )
 	
 	return children
