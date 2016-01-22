@@ -13,9 +13,3 @@ console.setFormatter(formatter)
 logging.getLogger('').addHandler(console) #This is the root logger
 
 Log = logging
-
-
-
-
-
-

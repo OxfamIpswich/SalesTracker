@@ -43,7 +43,7 @@ def FetchAll():
 	try:
 		Log.info(('SHOPS-Fetch-All:', 'Trying to grab all data from table'))
 		query = "SELECT * FROM shop;"
-		db.cursor.execute( query )
+		db.cursor.execute( query )		
 		result = db.cursor.fetchall()
 		Log.info(('SHOPS-Fetch-All:', 'Successfully grabbed data'))
 	except Error as e:

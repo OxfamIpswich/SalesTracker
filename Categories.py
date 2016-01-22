@@ -70,12 +70,3 @@ def FetchTreeByParentId(parent_id):
 		for child in bookCategories:
 			child["children"] = FetchTreeByParentId(child["id"])
 	return bookCategories
-
-
-
-
-
-
-
-
-
