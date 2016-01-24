@@ -26,6 +26,28 @@ class Database:
 	connection = None
 	cursor = None
 
+	def FetchByID(self,table_name,id,id_field='id'):
+		"""
+		Generic function to fetch a single row from database using simple WHERE id_field = id query
+		Args:
+		    table_name:
+		    id:
+		    id_field:
+
+		Returns:
+		Dict of data contained inside field
+		"""
+
+
+		result = None
+
+		query = "SELECT * FROM "+table_name+" WHERE "+id_field+" = %(id)s"
+		self.cursor.execute(query,{'id':id})
+		result = self.cursor.fetchone()
+
+		return result
+
+
 	def __init__(self, connectionParams, cursorParams):
 	 
 		try:
@@ -106,3 +128,4 @@ def FetchTree( root_id, table_name, id_field = "id", parent_id_field = "parent_i
 			child[ children_property ] = FetchTree( child[ id_field ], table_name )
 	
 	return children
+
