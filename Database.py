@@ -1,15 +1,15 @@
-import mysql.connector
+import psycopg2
 import logging
-from mysql.connector import Error
+from psycopg2 import OperationalError
 from Config import read_config
 from Log import Log
 
 # Datbase Connection/Cursor Configuration
 ### TODO: Move these out to an ini file, and have them being server-specific settings.
-defaultConnectionParams = read_config(section='mysql')
+defaultConnectionParams = read_config(section='psql')
 
 defaultCursorParams = {
-	"dictionary": True
+
 }
 
 
@@ -52,10 +52,10 @@ class Database:
 	 
 		try:
 			Log.info(('DATABASE:', 'Trying to connect to database'))
-			self.connection = mysql.connector.connect(**connectionParams)
+			self.connection = psycopg2.connect(**connectionParams)
 			self.cursor = self.connection.cursor(**cursorParams)
 			Log.info(('DATABASE:', 'Connected to database'))
-		except Error as e:
+		except OperationalError as e:
 			Log.critical(('DATABASE:', e))
 			Log.info(('DATABASE: Connection Params:', connectionParams))
 			Log.info(('DATABASE: Cursor Params:', cursorParams))
